@@ -188,7 +188,7 @@ def anchor_target_single_hbb_obb_rbox(flat_anchors,
     if not inside_flags.any():
         return (None, ) * 6
     # assign gt and sample anchors
-    anchors = flat_anchors[inside_flags, :].double()
+    anchors = flat_anchors[inside_flags.type(torch.bool), :].double()
     anchors = rect2rbox(anchors)
 
     if sampling:
@@ -272,7 +272,7 @@ def anchor_target_single_obb_obb_rbox(flat_anchors,
     if not inside_flags.any():
         return (None, ) * 6
     # assign gt and sample anchors
-    anchors = flat_anchors[inside_flags, :].double()
+    anchors = flat_anchors[inside_flags.type(torch.bool), :].double()
 
     if sampling:
         assign_result, sampling_result = assign_and_sample(
