@@ -81,7 +81,7 @@ test_cfg = dict(
     max_per_img=2000)
 # dataset settings
 dataset_type = 'DotaOBBDataset'
-data_root = '/workfs/jmhan/dota_1024_ms/'
+data_root = '/DL_data_big/DOTA/dota_1024_s2anet/'
 # data_root = 'data/dota_trainval/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
