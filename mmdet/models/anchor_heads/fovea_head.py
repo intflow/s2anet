@@ -209,7 +209,7 @@ class FoveaHead(nn.Module):
         flatten_bbox_preds = torch.cat(flatten_bbox_preds)
         flatten_labels, flatten_bbox_targets = self.fovea_target(
             gt_bbox_list, gt_label_list, featmap_sizes, points)
-        pos_inds = (flatten_labels > 0).nonzero().view(-1)
+        pos_inds = (flatten_labels > 0).nonzero(as_tuple=False).view(-1)
         num_pos = len(pos_inds)
         loss_cls = self.loss_cls(
             flatten_cls_scores, flatten_labels, avg_factor=num_pos + num_imgs)
@@ -270,7 +270,7 @@ class FoveaHead(nn.Module):
                                              4) + 1
             # scale assignment
             hit_indices = ((gt_areas >= lower_bound) &
-                           (gt_areas <= upper_bound)).nonzero().flatten()
+                           (gt_areas <= upper_bound)).nonzero(as_tuple=False).flatten()
             if len(hit_indices) == 0:
                 label_list.append(labels)
                 bbox_target_list.append(torch.log(bbox_targets))

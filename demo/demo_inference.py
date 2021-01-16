@@ -64,10 +64,10 @@ def save_det_result_bbox(config_file, out_dir, checkpoint_file=None, img_dir=Non
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='inference demo')
-    parser.add_argument('config_file', help='input config file')
-    parser.add_argument('model', help='pretrain model')
-    parser.add_argument('img_dir',help='img dir')
-    parser.add_argument('out_dir', help='output dir')
+    parser.add_argument('--config_file', type=str, default="configs/dota/s2anet_r50_fpn_1x_ms_rotate.py", required=False, help='input config file')
+    parser.add_argument('--model', type=str, default="work_dirs/s2anet_r50_fpn_1x_ms_rotate/epoch_12.pth", required=False, help='pretrain model')
+    parser.add_argument('--img_dir', type=str, default="/DL_data_big/DOTA/dota_1024_s2anet/test_samples", required=False, help='img dir')
+    parser.add_argument('--out_dir', type=str, default="/DL_data_big/DOTA/dota_1024_s2anet/test_samples_out", required=False, help='output dir')
     args = parser.parse_args()
 
     dota_colormap = [
@@ -85,7 +85,8 @@ if __name__ == '__main__':
         (59, 235, 255),
         (0, 152, 255),
         (34, 87, 255),
-        (72, 85, 121)]
+        (72, 85, 121),
+        (88, 32, 177)]
     
     hrsc2016_colormap=[(212, 188, 0)]
     save_det_result(args.config_file, args.out_dir,checkpoint_file=args.model,img_dir=args.img_dir, colormap=dota_colormap)

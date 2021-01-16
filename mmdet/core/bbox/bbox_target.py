@@ -65,7 +65,7 @@ def expand_target(bbox_targets, bbox_weights, labels, num_classes):
         (bbox_targets.size(0), 4 * num_classes))
     bbox_weights_expand = bbox_weights.new_zeros(
         (bbox_weights.size(0), 4 * num_classes))
-    for i in torch.nonzero(labels > 0).squeeze(-1):
+    for i in torch.nonzero(labels > 0, as_tuple=False).squeeze(-1):
         start, end = labels[i] * 4, (labels[i] + 1) * 4
         bbox_targets_expand[i, start:end] = bbox_targets[i, :]
         bbox_weights_expand[i, start:end] = bbox_weights[i, :]

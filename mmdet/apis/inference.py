@@ -195,7 +195,8 @@ def show_result_rbox(img,
         try:
             dets = detections[j]
         except:
-            pdb.set_trace()
+            continue
+            #pdb.set_trace()
         # import ipdb;ipdb.set_trace()
         for det in dets:
             score = det[-1]

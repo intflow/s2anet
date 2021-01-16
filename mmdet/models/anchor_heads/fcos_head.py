@@ -166,7 +166,7 @@ class FCOSHead(nn.Module):
         flatten_points = torch.cat(
             [points.repeat(num_imgs, 1) for points in all_level_points])
 
-        pos_inds = flatten_labels.nonzero().reshape(-1)
+        pos_inds = flatten_labels.nonzero(as_tuple=False).reshape(-1)
         num_pos = len(pos_inds)
         loss_cls = self.loss_cls(
             flatten_cls_scores, flatten_labels,

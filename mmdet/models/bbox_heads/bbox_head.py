@@ -187,7 +187,7 @@ class BBoxHead(nn.Module):
 
         bboxes_list = []
         for i in range(len(img_metas)):
-            inds = torch.nonzero(rois[:, 0] == i).squeeze()
+            inds = torch.nonzero(rois[:, 0] == i, as_tuple=False).squeeze()
             num_rois = inds.numel()
 
             bboxes_ = rois[inds, 1:]

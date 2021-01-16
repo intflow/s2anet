@@ -112,8 +112,8 @@ class SSDHead(AnchorHead):
                     bbox_targets, bbox_weights, num_total_samples, cfg):
         loss_cls_all = F.cross_entropy(
             cls_score, labels, reduction='none') * label_weights
-        pos_inds = (labels > 0).nonzero().view(-1)
-        neg_inds = (labels == 0).nonzero().view(-1)
+        pos_inds = (labels > 0).nonzero(as_tuple=False).view(-1)
+        neg_inds = (labels == 0).nonzero(as_tuple=False).view(-1)
 
         num_pos_samples = pos_inds.size(0)
         num_neg_samples = cfg.neg_pos_ratio * num_pos_samples

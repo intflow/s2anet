@@ -21,7 +21,7 @@ def cross_entropy(pred, label, weight=None, reduction='mean', avg_factor=None):
 
 def _expand_binary_labels(labels, label_weights, label_channels):
     bin_labels = labels.new_full((labels.size(0), label_channels), 0)
-    inds = torch.nonzero(labels >= 1).squeeze()
+    inds = torch.nonzero(labels >= 1, as_tuple=False).squeeze()
     if inds.numel() > 0:
         bin_labels[inds, labels[inds] - 1] = 1
     if label_weights is None:

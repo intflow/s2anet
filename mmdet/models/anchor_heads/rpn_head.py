@@ -85,7 +85,7 @@ class RPNHead(AnchorHead):
                 w = proposals[:, 2] - proposals[:, 0] + 1
                 h = proposals[:, 3] - proposals[:, 1] + 1
                 valid_inds = torch.nonzero((w >= cfg.min_bbox_size) &
-                                           (h >= cfg.min_bbox_size)).squeeze()
+                                           (h >= cfg.min_bbox_size), as_tuple=False).squeeze()
                 proposals = proposals[valid_inds, :]
                 scores = scores[valid_inds]
             proposals = torch.cat([proposals, scores.unsqueeze(-1)], dim=-1)

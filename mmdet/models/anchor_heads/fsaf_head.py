@@ -246,7 +246,7 @@ class FSAFHead(nn.Module):
         for lvl in range(num_levels):
             stride = self.feat_strides[lvl]
             norm = stride * self.norm_factor
-            inds = torch.nonzero(feat_lvls == lvl).squeeze(-1)
+            inds = torch.nonzero(feat_lvls == lvl, as_tuple=False).squeeze(-1)
             h, w = cls_score_list[lvl].size()[-2:]
             valid_h = min(int(np.ceil(img_h / stride)), h)
             valid_w = min(int(np.ceil(img_w / stride)), w)
@@ -308,7 +308,7 @@ class FSAFHead(nn.Module):
             w, h = cls_score_list[lvl].size()[-2:]
             # lower pyramid if exists
             if lvl > 0:
-                inds = torch.nonzero(feat_lvls == lvl - 1).squeeze(-1)
+                inds = torch.nonzero(feat_lvls == lvl - 1, as_tuple=False).squeeze(-1)
                 if len(inds) > 0:
                     boxes = gt_bboxes[inds, :]
                     proj_boxes = boxes / stride
@@ -319,7 +319,7 @@ class FSAFHead(nn.Module):
                                            ig_x2[i]] = 0.
             # upper pyramid if exists
             if lvl < num_levels - 1:
-                inds = torch.nonzero(feat_lvls == lvl + 1).squeeze(-1)
+                inds = torch.nonzero(feat_lvls == lvl + 1, as_tuple=False).squeeze(-1)
                 if len(inds) > 0:
                     boxes = gt_bboxes[inds, :]
                     proj_boxes = boxes / stride
@@ -335,7 +335,7 @@ class FSAFHead(nn.Module):
         for lvl in range(num_levels):
             npos = bbox_targets[lvl].size(0)
             num_pos += npos
-            num_neg += (label_weights[lvl].nonzero().size(0) - npos)
+            num_neg += (label_weights[lvl].nonzero(as_tuple=False).size(0) - npos)
         return (labels, label_weights, bbox_targets, bbox_locs, num_pos,
                 num_neg)
 
